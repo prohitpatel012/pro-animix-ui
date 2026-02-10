@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Dot Pattern Utilities */
+.bg-dot-thick-neutral-300 {
+  background-image: radial-gradient(#d4d4d4 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+.dark .bg-dot-thick-neutral-800 {
+  background-image: radial-gradient(#262626 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+.bg-dot-thick-indigo-500 {
+  background-image: radial-gradient(#6366f1 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
