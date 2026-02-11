@@ -13,6 +13,7 @@ export function AdminSidebar() {
     const menuItems = [
         { name: "Overview", href: "/dashboard/admin", icon: LayoutDashboard },
         { name: "User Management", href: "/dashboard/admin/users", icon: Users },
+        { name: "Templates", href: "/dashboard/admin/templates", icon: LayoutDashboard }, // Reusing icon or different one
         { name: "Analytics", href: "/dashboard/admin/analytics", icon: BarChart3, disabled: true },
         { name: "Security", href: "/dashboard/admin/security", icon: ShieldAlert, disabled: true },
         { name: "Settings", href: "/dashboard/admin/settings", icon: Settings, disabled: true },

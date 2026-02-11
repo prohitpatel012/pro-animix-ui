@@ -6,11 +6,22 @@ import { EcommerceTemplateDetails } from "@/components/templates/details/Ecommer
 import { DashboardTemplateDetails } from "@/components/templates/details/DashboardTemplateDetails";
 import { PortfolioTemplateDetails } from "@/components/templates/details/PortfolioTemplateDetails";
 import { GymTemplateDetails } from "@/components/templates/details/GymTemplateDetails";
+import { notFound } from "next/navigation";
+import dbConnect from "@/lib/db";
+import Template from "@/models/Template";
 import { templatesData } from "@/lib/templates";
 
 export default async function TemplatePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const template = templatesData[slug] || templatesData["landing-page"]; // Default fallback
+
+    await dbConnect();
+    const templateDoc = await Template.findOne({ slug }).lean();
+
+    if (!templateDoc) {
+        return notFound();
+    }
+
+    const template = JSON.parse(JSON.stringify(templateDoc));
 
     // Map logic: Return different component based on slug
     switch (slug) {

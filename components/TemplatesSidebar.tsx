@@ -6,19 +6,32 @@ import { motion } from "framer-motion";
 import { Layout, ShoppingCart, Briefcase, FileText, Smartphone, Dumbbell, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-const templates = [
-    { name: "Modern Landing Page", slug: "landing-page", icon: Layout, plan: "Free" },
-    { name: "E-commerce Store", slug: "ecommerce", icon: ShoppingCart, plan: "Pro" },
-    { name: "SaaS Dashboard", slug: "saas-dashboard", icon: Briefcase, plan: "Pro" },
-    { name: "Portfolio", slug: "portfolio", icon: FileText, plan: "Free" },
-    { name: "Mobile App", slug: "mobile-app", icon: Smartphone, plan: "Pro" },
-    { name: "Gym Website", slug: "gym-landing-page", icon: Dumbbell, plan: "Pro" },
-    { name: "Solo Portfolio", slug: "solo-portfolio", icon: FileText, plan: "Pro" },
-];
+interface Template {
+    title: string;
+    slug: string;
+    plan: string;
+}
 
-export function TemplatesSidebar() {
+// Helper to map icons
+const getIcon = (slug: string) => {
+    if (slug.includes("landing")) return Layout;
+    if (slug.includes("ecommerce")) return ShoppingCart;
+    if (slug.includes("dashboard")) return Briefcase;
+    if (slug.includes("portfolio")) return FileText;
+    if (slug.includes("app")) return Smartphone;
+    if (slug.includes("gym")) return Dumbbell;
+    return Layout;
+};
+
+export function TemplatesSidebar({ templates }: { templates: any[] }) {
     const pathname = usePathname();
     const [hoveredPath, setHoveredPath] = useState<string | null>(null);
+
+    // If no templates passed (e.g. loading or error), maybe show skeleton or empty?
+    // But layout should handle fetching.
+
+    // safe fallback
+    const safeTemplates = templates || [];
 
     return (
         <aside className="w-full md:w-64 shrink-0 md:border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black md:min-h-[calc(100vh-4rem)] relative z-20">
@@ -30,10 +43,11 @@ export function TemplatesSidebar() {
                 </div>
 
                 <nav className="space-y-0.5 relative">
-                    {templates.map((template) => {
+                    {safeTemplates.map((template) => {
                         const href = `/templates/${template.slug}`;
                         const isActive = pathname === href;
                         const isHovered = hoveredPath === href;
+                        const Icon = getIcon(template.slug);
 
                         return (
                             <Link
@@ -42,25 +56,25 @@ export function TemplatesSidebar() {
                                 onMouseEnter={() => setHoveredPath(href)}
                                 onMouseLeave={() => setHoveredPath(null)}
                                 className={`group flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all relative z-10 ${isActive
-                                        ? "text-neutral-900 dark:text-white"
-                                        : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                                    ? "text-neutral-900 dark:text-white"
+                                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                                     }`}
                             >
                                 {/* Static Icon */}
-                                <template.icon
+                                <Icon
                                     size={16}
                                     className={`transition-colors ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-neutral-400 group-hover:text-neutral-500"
                                         }`}
                                 />
 
-                                <span>{template.name}</span>
+                                <span>{template.title}</span>
 
                                 {/* Premium Plan Badge */}
-                                {template.plan === "Pro" && (
+                                {(template.plan === "Pro" || template.plan === "Premium") && (
                                     <div className="ml-auto flex items-center">
                                         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-linear-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/50 flex items-center gap-1">
                                             <Sparkles size={8} />
-                                            PRO
+                                            {template.plan.toUpperCase()}
                                         </span>
                                     </div>
                                 )}
