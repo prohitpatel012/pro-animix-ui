@@ -9,16 +9,13 @@ export function SaasLandingTemplateDetails({ template }: { template: any }) {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-black p-6 md:p-10 font-sans relative">
 
-            {/* Top Right Actions */}
-            <div className="absolute top-10 right-10 hidden lg:flex flex-col gap-4 items-end">
+            {/* Top Right Actions - FIXED & CONSISTENT */}
+            <div className="fixed top-24 right-6 z-50">
                 <Link href={`/templates/${template.slug}/preview`}>
-                    <button className="px-6 py-2.5 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-all shadow-md flex items-center gap-2 text-sm z-20">
+                    <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all">
                         <Globe className="w-4 h-4" /> Live Preview
                     </button>
                 </Link>
-                <button className="px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-sm z-20">
-                    Buy Now {template.price}
-                </button>
             </div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -41,9 +38,6 @@ export function SaasLandingTemplateDetails({ template }: { template: any }) {
                                 <Globe className="w-5 h-5" /> View Demo
                             </button>
                         </Link>
-                        <button className="px-8 py-4 bg-white dark:bg-slate-900 text-indigo-600 dark:text-white border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold hover:border-indigo-200 transition-colors flex items-center justify-center gap-3 text-lg w-full sm:w-auto shadow-sm">
-                            <ShoppingCart className="w-5 h-5" /> Buy for {template.price}
-                        </button>
                     </div>
 
                     <div className="pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-2 gap-6 text-sm text-slate-500">

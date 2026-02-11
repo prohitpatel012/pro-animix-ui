@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Dumbbell, Clock, Users, Trophy, Play, CheckCircle } from "lucide-react";
+import { Dumbbell, Clock, Users, Trophy, Play, CheckCircle, Globe } from "lucide-react";
 
 export function GymTemplateDetails({ template }: { template: any }) {
     return (
@@ -16,15 +16,13 @@ export function GymTemplateDetails({ template }: { template: any }) {
                     alt="Gym Background"
                     className="absolute inset-0 w-full h-full object-cover grayscale opacity-60"
                 />
-                <div className="absolute top-10 right-10 z-30 hidden md:flex flex-col gap-4 items-end">
+                <div className="fixed top-24 right-6 z-50">
                     <Link href={`/templates/${template.slug}/preview`}>
-                        <button className="bg-yellow-500 text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-yellow-400 transition-transform hover:scale-105 skew-x-[-10deg] shadow-lg shadow-yellow-500/20">
-                            <span className="skew-x-10 block text-sm">Live Preview</span>
+                        <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all font-sans">
+                            <Globe className="w-4 h-4" />
+                            <span className="block text-sm">Live Preview</span>
                         </button>
                     </Link>
-                    <button className="bg-neutral-900 border border-neutral-700 text-white px-6 py-3 font-bold uppercase tracking-wide hover:bg-neutral-800 transition-colors skew-x-[-10deg]">
-                        <span className="skew-x-10 block text-sm">Buy for {template.price}</span>
-                    </button>
                 </div>
 
                 <div className="relative z-20 max-w-4xl">

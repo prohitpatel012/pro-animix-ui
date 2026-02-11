@@ -7,21 +7,13 @@ import { ArrowUpRight, Github, Instagram, Linkedin, Twitter, Download, Share2 } 
 export function PortfolioTemplateDetails({ template }: { template: any }) {
     return (
         <div className="min-h-screen bg-black text-white font-mono p-6 md:p-12 relative">
-            {/* Top Right Actions */}
-            <div className="absolute top-12 right-12 hidden lg:flex flex-col gap-4 items-end z-20">
+            {/* Top Right Actions - FIXED & CONSISTENT */}
+            <div className="fixed top-24 right-6 z-50">
                 <Link href={`/templates/${template.slug}/preview`}>
-                    <div className="group cursor-pointer">
-                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">
-                            <ArrowUpRight className="w-4 h-4" /> Live Preview
-                        </div>
-                    </div>
+                    <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all font-sans">
+                        <ArrowUpRight className="w-4 h-4" /> Live Preview
+                    </button>
                 </Link>
-                <div className="w-4 h-px bg-neutral-800" />
-                <div className="group cursor-pointer">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">
-                        <Download className="w-4 h-4" /> Get Code {template.price}
-                    </div>
-                </div>
             </div>
 
             <div className="max-w-5xl mx-auto space-y-24">
@@ -40,10 +32,6 @@ export function PortfolioTemplateDetails({ template }: { template: any }) {
                                 <ArrowUpRight className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                             </button>
                         </Link>
-                        <button className="w-full py-4 border border-neutral-800 text-white font-bold uppercase tracking-widest hover:bg-neutral-900 transition-colors flex justify-between px-6">
-                            <span>Get Code {template.price}</span>
-                            <Download />
-                        </button>
                     </div>
                 </div>
 

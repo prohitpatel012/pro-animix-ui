@@ -2,23 +2,20 @@
 
 import React from "react";
 import Link from "next/link";
-import { ShoppingCart, Star, CreditCard, Box, TrendingUp, Search } from "lucide-react";
+import { ShoppingCart, Star, CreditCard, Box, TrendingUp, Search, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function EcommerceTemplateDetails({ template }: { template: any }) {
     return (
         <div className="min-h-screen bg-stone-50 dark:bg-stone-950 p-6 md:p-10 font-serif">
             <div className="max-w-7xl mx-auto">
-                {/* Header Actions */}
-                <div className="absolute top-6 right-6 md:top-10 md:right-10 z-20 hidden md:flex flex-col gap-4 items-end">
+                {/* Top Right Actions - FIXED & CONSISTENT */}
+                <div className="fixed top-24 right-6 z-50">
                     <Link href={`/templates/${template.slug}/preview`}>
-                        <button className="px-6 py-2 bg-stone-900 dark:bg-stone-100 text-white dark:text-black text-xs font-bold uppercase tracking-widest hover:bg-stone-700 transition-colors">
-                            Live Preview
+                        <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all font-sans">
+                            <Globe className="w-4 h-4" /> Live Preview
                         </button>
                     </Link>
-                    <button className="px-6 py-2 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-white text-xs font-bold uppercase tracking-widest hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors">
-                        Buy {template.price}
-                    </button>
                 </div>
 
                 {/* Header */}
@@ -33,23 +30,16 @@ export function EcommerceTemplateDetails({ template }: { template: any }) {
                 </div>
 
                 {/* Main Action Area */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20 max-w-4xl mx-auto">
-                    <Link href={`/templates/${template.slug}/preview`} className="w-full">
+                <div className="flex justify-center mb-20 max-w-4xl mx-auto">
+                    <Link href={`/templates/${template.slug}/preview`} className="w-full md:w-auto">
                         <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full py-5 bg-stone-900 dark:bg-stone-100 text-white dark:text-black text-lg uppercase tracking-widest hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors"
+                            className="w-full md:w-auto px-12 py-5 bg-stone-900 dark:bg-stone-100 text-white dark:text-black text-lg uppercase tracking-widest hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors"
                         >
                             View Showroom
                         </motion.button>
                     </Link>
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full py-5 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white text-lg uppercase tracking-widest hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
-                    >
-                        Add to Bag — {template.price}
-                    </motion.button>
                 </div>
 
                 {/* Imagery Grid */}

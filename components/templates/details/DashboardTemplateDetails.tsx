@@ -8,6 +8,15 @@ export function DashboardTemplateDetails({ template }: { template: any }) {
     return (
         <div className="min-h-screen bg-neutral-50 dark:bg-zinc-950 p-6 md:p-10 font-sans">
             <div className="max-w-7xl mx-auto">
+                {/* Top Right Actions - FIXED & CONSISTENT */}
+                <div className="fixed top-24 right-6 z-50">
+                    <Link href={`/templates/${template.slug}/preview`}>
+                        <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all">
+                            <Globe className="w-4 h-4" /> Live Preview
+                        </button>
+                    </Link>
+                </div>
+
                 {/* Header */}
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-16 border-b border-neutral-200 dark:border-neutral-800 pb-10">
                     <div className="max-w-2xl text-center lg:text-left">
@@ -28,9 +37,6 @@ export function DashboardTemplateDetails({ template }: { template: any }) {
                                 <Globe className="w-4 h-4" /> Live Demo
                             </button>
                         </Link>
-                        <button className="px-8 py-3 bg-white dark:bg-zinc-900 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-700 rounded-lg font-bold hover:bg-neutral-50 dark:hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
-                            <ShoppingCart className="w-4 h-4" /> Purchase {template.price}
-                        </button>
                     </div>
                 </div>
 

@@ -8,16 +8,13 @@ export function MobileAppTemplateDetails({ template }: { template: any }) {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-black p-6 md:p-10 font-sans relative">
 
-            {/* Top Right Actions */}
-            <div className="absolute top-10 right-10 hidden lg:flex flex-col gap-4 items-end">
+            {/* Top Right Actions - FIXED & CONSISTENT */}
+            <div className="fixed top-24 right-6 z-50">
                 <Link href={`/templates/${template.slug}/preview`}>
-                    <button className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-all shadow-md flex items-center gap-2 text-sm z-20">
+                    <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all">
                         <Globe className="w-4 h-4" /> Live Preview
                     </button>
                 </Link>
-                <button className="px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-sm z-20">
-                    Buy Now {template.price}
-                </button>
             </div>
 
             <div className="max-w-6xl mx-auto">
@@ -39,9 +36,6 @@ export function MobileAppTemplateDetails({ template }: { template: any }) {
                                 <Globe className="w-5 h-5" /> Live Demo
                             </button>
                         </Link>
-                        <button className="px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-3">
-                            <ShoppingCart className="w-5 h-5" /> Buy Now {template.price}
-                        </button>
                     </div>
                 </div>
 

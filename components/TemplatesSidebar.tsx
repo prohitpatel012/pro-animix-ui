@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Layout, ShoppingCart, Briefcase, FileText, Smartphone, Dumbbell } from "lucide-react";
+import { Layout, ShoppingCart, Briefcase, FileText, Smartphone, Dumbbell, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 const templates = [
-    { name: "Modern Landing Page", slug: "landing-page", icon: Layout, plan: "Pro" },
+    { name: "Modern Landing Page", slug: "landing-page", icon: Layout, plan: "Free" },
     { name: "E-commerce Store", slug: "ecommerce", icon: ShoppingCart, plan: "Pro" },
     { name: "SaaS Dashboard", slug: "saas-dashboard", icon: Briefcase, plan: "Pro" },
-    { name: "Portfolio", slug: "portfolio", icon: FileText, plan: "Pro" },
+    { name: "Portfolio", slug: "portfolio", icon: FileText, plan: "Free" },
     { name: "Mobile App", slug: "mobile-app", icon: Smartphone, plan: "Pro" },
     { name: "Gym Website", slug: "gym-landing-page", icon: Dumbbell, plan: "Pro" },
     { name: "Solo Portfolio", slug: "solo-portfolio", icon: FileText, plan: "Pro" },
@@ -17,36 +18,73 @@ const templates = [
 
 export function TemplatesSidebar() {
     const pathname = usePathname();
+    const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
     return (
-        <div className="w-full md:w-80 shrink-0 md:border-r md:border-neutral-200 md:dark:border-neutral-800 bg-white dark:bg-black md:min-h-[calc(100vh-4rem)]">
-            <div className="p-4 md:p-6 sticky top-20">
-                <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4 px-2">
-                    Discover Templates
-                </h2>
-                <nav className="space-y-1">
+        <aside className="w-full md:w-64 shrink-0 md:border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black md:min-h-[calc(100vh-4rem)] relative z-20">
+            <div className="sticky top-20 p-4">
+                <div className="mb-6 px-3">
+                    <h2 className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">
+                        Templates Library
+                    </h2>
+                </div>
+
+                <nav className="space-y-0.5 relative">
                     {templates.map((template) => {
-                        const isActive = pathname === `/templates/${template.slug}`;
+                        const href = `/templates/${template.slug}`;
+                        const isActive = pathname === href;
+                        const isHovered = hoveredPath === href;
+
                         return (
                             <Link
                                 key={template.slug}
-                                href={`/templates/${template.slug}`}
-                                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors relative ${isActive
-                                    ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                                    : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                                href={href}
+                                onMouseEnter={() => setHoveredPath(href)}
+                                onMouseLeave={() => setHoveredPath(null)}
+                                className={`group flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all relative z-10 ${isActive
+                                        ? "text-neutral-900 dark:text-white"
+                                        : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                                     }`}
                             >
-                                <template.icon className="w-4 h-4" />
-                                {template.name}
-                                {template.plan && template.plan !== "Basic" && (
-                                    <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded text-white bg-indigo-500">
-                                        {template.plan}
-                                    </span>
+                                {/* Static Icon */}
+                                <template.icon
+                                    size={16}
+                                    className={`transition-colors ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-neutral-400 group-hover:text-neutral-500"
+                                        }`}
+                                />
+
+                                <span>{template.name}</span>
+
+                                {/* Premium Plan Badge */}
+                                {template.plan === "Pro" && (
+                                    <div className="ml-auto flex items-center">
+                                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-linear-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/50 flex items-center gap-1">
+                                            <Sparkles size={8} />
+                                            PRO
+                                        </span>
+                                    </div>
                                 )}
-                                {isActive && (
+
+                                {/* Hover Pipe & Background Animation */}
+                                {isHovered && (
                                     <motion.div
-                                        layoutId="activeTemplate"
-                                        className="absolute left-0 w-1 h-6 bg-indigo-600 rounded-r-full"
+                                        layoutId="sidebar-hover"
+                                        className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800/50 rounded-lg -z-10"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.15 }}
+                                    >
+                                        {/* The moving pipe on the left */}
+                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-indigo-500 rounded-r-full" />
+                                    </motion.div>
+                                )}
+
+                                {/* Active State Indicator (if not hovering, or distinct) */}
+                                {isActive && !isHovered && (
+                                    <motion.div
+                                        layoutId="sidebar-active"
+                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-indigo-600 rounded-r-full"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
@@ -57,16 +95,26 @@ export function TemplatesSidebar() {
                     })}
                 </nav>
 
-                <div className="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 px-2">
-                    <div className="bg-linear-to-br from-indigo-500 to-purple-600 rounded-xl p-4 text-white">
-                        <h3 className="font-bold text-sm mb-1">Get All Access</h3>
-                        <p className="text-xs text-indigo-100 mb-3">Unlock all premium templates and components.</p>
-                        <button className="w-full py-1.5 bg-white text-indigo-600 text-xs font-bold rounded-lg hover:bg-indigo-50 transition-colors">
-                            Upgrade Now
-                        </button>
+                <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-neutral-800 px-1">
+                    <div className="group relative overflow-hidden rounded-xl bg-neutral-900 dark:bg-neutral-800 p-4 transition-all hover:shadow-lg">
+                        <div className="relative z-10">
+                            <h3 className="font-bold text-xs text-white mb-1 flex items-center gap-2">
+                                <Sparkles size={12} className="text-amber-400" />
+                                All Access Pass
+                            </h3>
+                            <p className="text-[10px] text-neutral-400 mb-3 leading-relaxed">
+                                Get unlimited access to all premium templates and components.
+                            </p>
+                            <button className="w-full py-1.5 bg-white text-black text-[10px] font-bold uppercase tracking-wide rounded hover:bg-neutral-200 transition-colors">
+                                Upgrade Plan
+                            </button>
+                        </div>
+
+                        {/* Abstract Background Effect */}
+                        <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 rounded-full bg-indigo-500/20 blur-2xl group-hover:bg-indigo-500/30 transition-colors" />
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     );
 }

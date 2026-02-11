@@ -31,16 +31,13 @@ export function DefaultTemplateDetails({ template }: { template: any }) {
                             </div>
                         </div>
 
-                        {/* Header Actions */}
-                        <div className="flex flex-col gap-3 w-full lg:w-auto">
+                        {/* Header Actions - FIXED & CONSISTENT */}
+                        <div className="fixed top-24 right-6 z-50">
                             <Link href={`/templates/${template.slug}/preview`} target="_blank">
-                                <button className="w-full lg:w-48 px-6 py-3 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm">
+                                <button className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all">
                                     <Globe className="w-4 h-4" /> Live Preview
                                 </button>
                             </Link>
-                            <button className="w-full lg:w-48 px-6 py-3 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm">
-                                <ShoppingCart className="w-4 h-4" /> Add to Cart {template.price}
-                            </button>
                         </div>
                     </div>
 
